@@ -1,4 +1,4 @@
-### Record the learning process
+## Log
 (Working on taking snapshots for the workpieces)
 
 - lottery2.html
