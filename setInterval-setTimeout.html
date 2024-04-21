@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      margin: 50px auto;
+      width: 238px;
+      height: 200px;
+    }
+
+    .timeout {
+      box-sizing: border-box;
+      margin: 0 auto;
+      padding: 20px;
+      width: 300px;
+      height: 100px;
+      background-color: pink;
+      text-align-last: center;
+      line-height: 60px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <textarea name="agreement" id="agreement" cols="30" rows="10">
+      Agreement
+      blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+    </textarea>
+    <br>
+    <button>Please read the agreement(10)</button>
+  </div>
+
+  <div class="timeout">I will disappear in 5 seconds</div>
+
+  <script>
+    const button = document.querySelector('button')
+    button.disabled = true
+    let i = 10
+    let countdown = setInterval(function () {
+      i--
+      button.innerHTML = `Please read the agreement(${i})`
+      if (i === 0) {
+        clearInterval(countdown)
+        button.disabled = false
+        button.innerHTML = 'I agree'
+      }
+    }, 1000)
+
+    const pinkBox = document.querySelector('.timeout')
+    let j = 5
+    let n = setInterval (function () {
+      j--
+      pinkBox.innerHTML = `I will disappear in ${j} seconds`
+      if (j === 0) {
+        clearInterval(n)
+      }
+    }, 1000)
+    setTimeout (function () {
+
+      pinkBox.style.display = 'none'
+    }, 5000)
+  </script>
+</body>
+
+</html>

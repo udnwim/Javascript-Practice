@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    .box {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px auto;
+      width: 700px;
+      height: 100px;
+    }
+    .box .input {
+      position: relative;
+      width: 550px;
+      height: 80px;
+      background-color: #fff;
+    }
+    .box .wordCount {
+      display: none;
+      position: absolute;
+      bottom: -16px;
+      right: 0;
+      width: 80px;
+      height: 14px;
+      font: 12px Arial;
+      text-align: right;
+      line-height: 14px;
+      color: grey;
+    }
+    .box .submit {
+      width: 100px;
+      height: 80px;
+      background-color: #40adee;
+      line-height: 80px;
+      text-align: center;
+      font-size: 18px;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .box>div {
+      margin: 0 10px;
+      margin-top: 5px;
+    }
+    .board {
+      margin: 10px auto;
+      padding: 10px;
+      width: 680px;
+      height: 100px;
+      background-color: skyblue;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="input">
+      <textarea id="comment" cols="73" rows="5" placeholder="Type your comment here" maxlength="200"></textarea>
+      <div class="wordCount">0/100</div>
+    </div>
+    <div class="submit">submit</div>
+  </div>
+  <div class="board"></div>
+
+  <script>
+    const input = document.querySelector('#comment')
+    const wordCount = document.querySelector('.input .wordCount')
+    input.addEventListener('focus', function () {
+      wordCount.style.display = 'block'
+    })
+    input.addEventListener('blur', function () {
+      wordCount.style.display = 'none'
+    })
+    input.addEventListener('input', function () {
+      let length = input.value.length
+      if (length >= 200) {
+        wordCount.style.color = 'red'
+      } else {
+        wordCount.style.color = 'grey'
+      }
+      wordCount.innerHTML = `${length}/200`
+    })
+    //requirement: press enter to send a comment
+    //avatar(left), username, comment, time
+    const commentBoard = document.querySelector('.board')
+    input.addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') {
+        //make sure the content is not empty
+        // if (input.value.trim() !== '') { //feasible
+        if (input.value.trim()) {//if input='', meaning false, the following won't run
+          commentBoard.style.display = 'block'
+          commentBoard.innerHTML = input.value
+        }
+        //clear textarea and word count. not innerHTML, use value
+        input.value = ''
+        wordCount.innerHTML = '0/200'
+        //make sure the new comment does not override the old comment
+
+      }
+    })
+  </script>
+</body>
+</html>

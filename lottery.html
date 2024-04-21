@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      margin: 0 auto;
+      width: 400px;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h1>First Prize: <span></span></h1>
+    <h3>Second Prize: <span></span></h3>
+    <h5>Third Prize: <span></span></h5>
+  </div>
+
+  <script>
+    const lottery = ['Jay Chou', 'Andy Liu', 'Pink Floyd', 'Ariana Grande', 'MJ']
+    const prize = document.querySelectorAll(`.box span`)
+    
+    for (let i = 0; i < 3; i++) {
+      let random = Math.floor(Math.random() * lottery.length)
+      console.log(`Winner: ${random}, ${lottery[random]}.`)
+      prize[i].innerHTML = lottery[random]
+      lottery.splice(random, 1)
+    }
+    console.log(lottery.length)
+    for (let i = 0; i < lottery.length; i++) {
+      console.log(lottery[i])
+    }
+
+  </script>
+</body>
+
+</html>

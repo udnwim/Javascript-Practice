@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    a {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- a practice of using location.href -->
+  <div>
+    <a href="https://www.google.com/">Will be automatically jumping to google.com in 5 seconds</a>
+  </div>
+
+  <script>
+    const jump = document.querySelector('a')
+    let j = 5
+    let n = setInterval(function () {
+      j--
+      jump.innerHTML = `Will be automatically jumping to google.com in ${j} seconds...`
+      if (j === 0) {
+        clearInterval(n)
+        location.href = "https://www.google.com/"
+      }
+    }, 1000)
+  </script>
+</body>
+
+</html>

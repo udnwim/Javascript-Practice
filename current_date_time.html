@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    h1 {
+      margin: 20px auto;
+      display: block;
+      width: 480px;
+      height: 45px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1></h1>
+  <script>
+    //print the current date in format of YYYY-MM-DD HH:mm:ss
+    function whatTimeIsIt() {
+      const date = new Date()
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+      const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(1)
+      // console.log(typeof(day))
+      const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+      const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+      const sec = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+
+      return `${year}-${month}-${day} ${hour}:${min}:${sec}`
+    }
+
+    //Since there is a 1 second delay for setInterval, the time wont display until the 
+    //first second is counted. We need to call the function once beforehand.
+    const h1 = document.querySelector('h1')
+    h1.innerHTML = 'Current time: ' + whatTimeIsIt()
+
+    
+    let n = setInterval(function () {
+      h1.innerHTML = 'Current time: ' + whatTimeIsIt()
+      //逃课写法
+      const date1 = new Date()
+      console.log(date1.toLocaleString())
+      //
+    }, 1000)
+
+    
+  </script>
+</body>
+
+</html>

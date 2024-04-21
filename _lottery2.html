@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 40px auto;
+      width: 400px;
+      height: 200px;
+      border: 1px solid black;
+      text-align: center;
+      box-shadow: 1px 1px grey;
+    }
+
+    .box h4 {
+      margin: 20px;
+    }
+
+    .box .btns {
+      display: flex;
+    }
+
+    .box button {
+      margin: 25px 50px;
+      width: 100px;
+      height: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h4>LOTTERY</h4>
+    <div class="winner">Winner will be displayed here</div>
+    <div class="btns">
+      <button class="begin">Begin</button>
+      <button class="end">Stop</button>
+    </div>
+  </div>
+
+  <script>
+    const lottery = ['Jay Chou', 'Andy Liu', 'Pink Floyd', 'Ariana Grande', 'MJ']
+
+    const begin = document.querySelector('.box .begin')
+    const end = document.querySelector('.box .end')
+    const winner = document.querySelector('.box .winner')
+
+    //important!! vv
+    let timerId = 0
+    //important!! ^^
+    begin.addEventListener('click', function () {
+      if (lottery.length === 1) {
+        alert('All winners are announced. Thanks for participating!')
+        winner.style.display = 'none'
+        begin.disabled = true
+        btnStop.disabled = true
+      }
+      timerId = setInterval(function () {
+        const random = parseInt(Math.random() * lottery.length)
+        winner.innerHTML = lottery[random]
+      }, 50)
+    })
+
+    end.addEventListener('click', function () {
+      clearInterval(timerId)
+      let random = parseInt(Math.random() * lottery.length)
+      winner.innerHTML = (`Winner: ${lottery[random]}!!`)
+      lottery.splice(random, 1)
+    })
+  </script>
+</body>
+
+</html>

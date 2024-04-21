@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    table {
+      margin: 30px auto;
+      width: 300px;
+      height: 200px;
+      background-color: pink;
+      border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+      font-family: Arial, Helvetica, sans-serif;
+      border: 1px solid black;
+      text-align: center;
+    }
+
+    th {
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <th><input type="checkbox" id="main">select all</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbx"></td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbx"></td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbx"></td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </table>
+
+  <script>
+    const main = document.querySelector('#main')
+    const checkboxes = document.querySelectorAll('.checkbx')
+    console.log(checkboxes.length)
+    main.addEventListener('click', function () {
+      for (let i = 0; i < checkboxes.length; i++) {
+        // When click on the main button, change the other checkboxes' checked status to be the same as the main button
+        checkboxes[i].checked = this.checked
+        // checkboxes[i].checked = main.checked
+      }
+    })
+    // If all the buttons are selected, the main button should be checked as well.
+    // Each time a small checkbox is checked, get the total number of box checked, 
+    // and compare to the total# of small checkboxes, if equal, check the main checkbox as well.
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].addEventListener('click', function () {
+        // !! important !!
+        // true -> check; if #of total check === #of checkboxes, meaning it is true, 
+        // then main.check = true = check
+        main.checked = (document.querySelectorAll('.checkbx:checked').length === checkboxes.length)
+        //or
+        // if (document.querySelectorAll('.checkbx:checked').length === checkboxes.length) {
+        //   main.checked = true
+        // } else {
+        //   main.checked = false
+        // }
+      })
+    }
+  </script>
+</body>
+
+</html>

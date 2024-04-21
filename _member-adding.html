@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .surveryForm {
+      margin: 50px auto;
+      margin-bottom: 20px;
+      width: 60%;
+    }
+
+    .border {
+      border: 1px dashed gray;
+      margin: 0 auto;
+      margin-bottom: 20px;
+      width: 60%;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .input-info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    #name,
+    #location {
+      width: 80px;
+    }
+
+    #age,
+    #gender,
+    #salary {
+      width: 55px;
+    }
+
+    .input-info [type='submit'] {
+      width: 50px;
+      height: 20px;
+      background-color: grey;
+      color: white;
+      border-radius: 3px;
+      cursor: pointer;
+      border: none;
+    }
+
+    table {
+      margin: 10px auto;
+      border-collapse: collapse;
+      width: 60%;
+    }
+
+    td {
+      padding: 0 10px;
+      border: 1px solid gray;
+      line-height: 45px;
+      text-align: center;
+      color: black;
+      font-size: 14px;
+    }
+
+    tbody a {
+      display: block;
+      background-color: #e96d36;
+      color: white;
+      line-height: 25px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    thead td {
+      background-color: #e4e4e4;
+      line-height: 40px;
+      font-weight: bold;
+    }
+
+    .game-icons--trash-can {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23000' d='M199 103v50h-78v30h270v-30h-78v-50zm18 18h78v32h-78zm-79.002 80l30.106 286h175.794l30.104-286zm62.338 13.38l.64 8.98l16 224l.643 8.976l-17.956 1.283l-.64-8.98l-16-224l-.643-8.976zm111.328 0l17.955 1.284l-.643 8.977l-16 224l-.64 8.98l-17.956-1.284l.643-8.977l16-224l.64-8.98zM247 215h18v242h-18z'/%3E%3C/svg%3E");
+      background-color: currentColor;
+      -webkit-mask-image: var(--svg);
+      mask-image: var(--svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      font-size: 17px;
+      transform: translate(-3px, 2px);
+    }
+
+    .surveryForm .warn {
+      width: 100%;
+      height: 15px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+    }
+
+    .surveryForm .warn .error {
+      /* display: block; */
+      color: red;
+
+    }
+  </style>
+</head>
+
+<body>
+  <!-- create an array to record client's input and render to the webpage -->
+
+  <form class="surveryForm">
+    <div class="warn"><span></span></div>
+    <div class="input-info">
+      <div class="name">
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name">
+      </div>
+
+      <!-- age -> DOB -->
+      <div class="age">
+        <label for="age">Age: </label>
+        <input type="text" id="age" name="age">
+      </div>
+
+      <div class="gender">
+        <label for="gender">Gender: </label>
+        <select type="text" id="gender" name="gender">
+          <option value="" selected></option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Gender not listed">Gender not listed</option>
+          <option value="Prefer not to answer">Prefer not to answer</option>
+        </select>
+      </div>
+
+      <div class="salary">
+        <label for="salary">Salary(k): </label>
+        <input type="text" id="salary" name="salary">
+      </div>
+
+      <div class="location">
+        <label for="location">Location: </label>
+        <select type="text" id="location" name="location">
+          <option value="" selected></option>
+          <option value="Boston">Boston</option>
+          <option value="New York">New York</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Chicago">Chicago</option>
+        </select>
+      </div>
+
+      <input type="submit" value="Add">
+    </div>
+  </form>
+
+  <div class="border"></div>
+  <h2>Board</h2>
+  <!-- Everything is going to be in the table-tbody below -->
+  <table>
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Age</td>
+        <td>Gender</td>
+        <td>Salary</td>
+        <td>Location</td>
+        <td>Entry Date</td>
+        <td>Operation</td>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    //To-Do:
+    //instead of typing the age, make user to select their DOB.
+    //add an edit feature? (directly modify the table)
+    const studentName = document.querySelector('#name')
+    const studentAge = document.querySelector('#age')
+    const studentGender = document.querySelector('#gender')
+    const studentSalary = document.querySelector('#salary')
+    const studentLocation = document.querySelector('#location')
+    //select all the elements that has a name attribute to check if they are empty later on
+    const nameAttribute = document.querySelectorAll('[name]')
+    // console.log(nameAttribute)
+
+    const form = document.querySelector('.surveryForm')
+    const tbody = document.querySelector('table tbody')
+    //Get data from local storage, if no local data, then it is an empty array
+    const sample = {
+      id: 1,
+      name: 'Hui',
+      age: '99',
+      gender: 'Female',
+      salary: ' - ',
+      location: 'Boston',
+      date: '4/9/2024, 4:33:54 PM'
+    }
+    let arr = JSON.parse(localStorage.getItem('member')) || []
+    if(arr.length === 0) arr.unshift(sample)
+    // console.log(arr)
+    render()
+
+    function render() {
+      //Each time a submit action is triggered, the old existing data will be printed along with the new data, 
+      //causing repetition. Need to clear the table before printing
+      tbody.innerHTML = ''
+
+      //create new rows, print table data(everything in data, every objects in arr)
+      // for (let i = 0; i < arr.length; i++) {
+      //   const tr = document.createElement('tr')
+      //   tr.innerHTML = `
+      //     <td>${arr[i].id}</td>
+      //     <td>${arr[i].name}</td>
+      //     <td>${arr[i].age}</td>
+      //     <td>${arr[i].gender}</td>
+      //     <td>${arr[i].salary}k</td>
+      //     <td>${arr[i].location}</td>
+      //     <td>${arr[i].date}</td>
+      //     <td><a href="#" data-id=${i}>Delete</a></td> 
+      //   `
+      // }
+
+      //rewrite render function using map() and join():
+      const outputArr = arr.map(function (ele, index) {
+        return `
+          <tr>
+            <td>${ele.id}</td>
+            <td>${ele.name}</td>
+            <td>${ele.age}</td>
+            <td>${ele.gender}</td>
+            <td>${ele.salary}k</td>
+            <td>${ele.location}</td>
+            <td>${ele.date}</td>
+            <td><a href="#" data-id=${index}><span class="game-icons--trash-can"></span>Delete</a></td> 
+          </tr>  
+        `
+      })
+      // // console.log(outputArr.join(''))
+      tbody.innerHTML = outputArr.join('')
+    }
+
+    //when submit action is detected, create an object with these values and add to the array
+    form.addEventListener('submit', function (e) {
+      e.preventDefault() //important! or everything will be refreshed and not saved
+      const data = {
+        id: arr.length + 1, //take note on this
+        name: studentName.value,
+        age: studentAge.value,
+        gender: studentGender.value,
+        salary: studentSalary.value,
+        location: studentLocation.value,
+        date: new Date().toLocaleString()
+      }
+
+      //make sure the input is not empty!
+      for (let i = 0; i < nameAttribute.length; i++) {
+        // console.log(nameAttribute[i].value)
+        if (nameAttribute[i].value === '') {
+          return alert('Error: Please fill out all the blanks')
+        }
+      }
+
+      arr.push(data)
+      // console.log(arr)
+      localStorage.setItem('member', JSON.stringify(arr))
+      this.reset() //we use "this" in this case instead of calling the object "form"
+      render()
+    })
+
+    //delete a table row and refresh the table
+    tbody.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        // console.log(e.target.dataset.id)
+        arr.splice(e.target.dataset.id, 1)
+        localStorage.setItem('member', JSON.stringify(arr))
+        render()
+      }
+    })
+
+    const warn = document.querySelector('.surveryForm .warn span')
+    studentName.addEventListener('blur', function (e) {
+      const RE = /^[a-zA-Z]{3,16}$/
+      if (RE.test(this.value) === false) {
+        warn.innerHTML = 'Please enter a name that is 3-16 characters long and no number'
+        // warn.classList.add('error')  //make sure to not add a '.' before the classname
+        warn.className = 'error' //this works too since we don't need to worry about override
+        // green and red toggles; can't appear at the same time
+      } else {
+        warn.innerHTML = ''
+      }
+    })
+  </script>
+</body>
+
+</html>

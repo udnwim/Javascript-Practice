@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    h4 {
+      display: block;
+      width: 500px;
+      height: 25px;
+      margin: 10px auto;
+      margin-bottom: 0;
+    }
+    .bar {
+      margin: 0px auto;
+      width: 500px;
+      height: 32px;
+      background-color: pink;
+    }
+
+    ul {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 0 auto;
+      width: 500px;
+      height: 30px;
+      list-style: none;
+    }
+
+    ul a {
+      display: block;
+      text-decoration: none;
+      color: black;
+      height: 30px;
+      width: 100px;
+      line-height: 30px;
+      text-align: center;
+    }
+    .bar .line {
+      width: 100px;
+      height: 2px;
+      background-color: grey;
+      border-radius: 2px;
+      transition: all .4s;
+    }
+  </style>
+</head>
+
+<body>
+  <h4>Click the options below to see effects</h4>
+  <div class="bar">
+    <ul>
+      <li><a href="#">option1</a></li>
+      <li><a href="#">option2</a></li>
+      <li><a href="#">option3</a></li>
+      <li><a href="#">option4</a></li>
+      <li><a href="#">option5</a></li>
+    </ul>
+    <!-- the bar is going to move based on the offsetLeft value 
+      of the current clicking target  -->
+    <div class="line"></div>
+  </div>
+
+  <script>
+    const line = document.querySelector('.bar .line')
+    const list = document.querySelector('.bar ul')
+    list.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        const n = e.target.offsetLeft
+        const ulOffset = list.offsetLeft
+        line.style.transform = `translateX(${(n - ulOffset) + 'px'})`
+      }
+    })
+  </script>
+</body>
+
+</html>

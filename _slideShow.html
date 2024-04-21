@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .slider {
+      position: relative;
+      margin: 20px auto;
+      width: 250px;
+      height: 150px;
+    }
+
+    .slider-indicator ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .slider-indicator ul li {
+      margin: 7px 4px;
+      width: 6px;
+      height: 6px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .slider-indicator ul .active {
+      width: 7px;
+      height: 7px;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .slider-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      justify-content: flex-end;
+      width: 250px;
+      height: 30px;
+    }
+
+    .slider-footer .toggle {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: 19px;
+      width: 70px;
+      height: 30px;
+      /* background-color: pink; */
+    }
+
+    .slider-footer .toggle div {
+      margin: 0 3px;
+      width: 25px;
+      height: 25px;
+      background-color: white;
+      text-align: center;
+      line-height: 25px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slider">
+    <div class="slider-wrapper">
+      <img src="./images/1.jpg" alt="">
+    </div>
+    <div class="slider-footer">
+      <div class="slider-indicator">
+        <ul>
+          <li class="active"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="toggle">
+        <div class="left">-</div>
+        <div class="right">+</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sliderData = [
+      { url: './images/1.jpg' },
+      { url: './images/2.jpg' },
+      { url: './images/3.jpg' },
+      { url: './images/4.jpg' },
+      { url: './images/5.jpg' }
+    ]
+    const sliderImg = document.querySelector('.slider-wrapper img')
+    const sliderIndi = document.querySelector('slider-indicator li:nth-child(2)')
+    function toggle() {
+      sliderImg.src = sliderData[i].url
+      //!!important!! remove the current active status before doing anything
+      document.querySelector(`.slider-indicator .active`).classList.remove('active')
+      document.querySelector(`.slider-indicator li:nth-child(${i + 1})`).classList.add('active')
+    }
+
+    //auto slide show ver.1
+    let i = 0
+    // let slideShow = setInterval(function () {
+    //   i++
+    //   /* 
+    //   max index number is 4 in this case. When i=4, the last pic is displayed,
+    //   i will be 5 after i++ and there will be a syntax error. Therefore need to reset.
+    //    */
+    //   if (i >= sliderData.length) {
+    //     i = 0
+    //   }
+    //   toggle()
+    // }, 4000)
+
+    //click event for the lower right buttons
+    const leftBtn = document.querySelector('.slider .toggle .left')
+    const rightBtn = document.querySelector('.slider .toggle .right')
+
+    leftBtn.addEventListener('click', function () {
+      i = (i <= 0) ? sliderData.length : i
+      i--
+      toggle()
+    })
+    rightBtn.addEventListener('click', function () { //fn name is click. can be called
+      i = (i >= sliderData.length - 1) ? -1 : i
+      i++
+      toggle()
+    })
+
+    //auto slide show ver.2
+    let slideShow = setInterval(function () {
+      //call the click function
+      rightBtn.click()
+    }, 2000)
+
+    function restartSlideShow() {
+      slideShow = setInterval(function () {
+        rightBtn.click()
+      }, 2000)
+    }
+    
+    const wrapper = document.querySelector('.slider')
+    wrapper.addEventListener('mouseenter', function () {
+      clearInterval(slideShow)
+    })
+    wrapper.addEventListener('mouseleave', function () {
+      restartSlideShow()
+    })
+
+  </script>
+</body>
+
+</html>
