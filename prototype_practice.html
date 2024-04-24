@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .alert {
+      margin: 0 auto;
+      padding: 10px;
+      width: 200px;
+      height: 100px;
+      box-shadow: 1px 1px 10px grey;
+      border-radius: 5px;
+    }
+
+    .window {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+      width: 50px;
+      height: 20px;
+    }
+
+    .btns button {
+      margin-right: 10px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="btns">
+    <button id="delete">Delete</button>
+    <button id="login">Login</button>
+  </div>
+
+
+  <script>
+    //construct a function and add a common method so that it applies to any new objects
+    //in this case any new buttons
+    function Messagebox(title = '', content = '') {
+      //create a messagebox
+      this.box = document.createElement('div')
+      this.box.className = 'alert'
+      this.box.innerHTML = `
+        <div class="window">
+          <div class="title">${title}</div>
+          <button id="close">X</button>
+        </div>
+        <div class="content">${content}</div>
+      `
+      // console.log(this.box)
+    }
+
+    //the buttons share a method: popping a message box. add it to prototype.
+    Messagebox.prototype.open = function () {
+      //bug: multiple boxes will appear if we click more tha once
+      //check if there is a messagebox first. if there is one, remove
+      const box = document.querySelector('.alert')
+      //if there is a box, the command after "&&" will be triggered, otherwise nothing happen
+      box && box.remove()
+      document.body.append(this.box)
+
+      //This is where we monitor the exact messagebox we generated, eventlistener 
+      //for closing the box should be here
+      //*Notice that we use arrow function here instead of the regular function so "this" won't 
+      //point to the "X" button
+      this.box.querySelector('#close').addEventListener('click', () => {
+        this.box.remove()
+      })
+    }
+
+    //the buttons also share another method: closing a message box. add it to prototype.
+    Messagebox.prototype.close = function () {
+      this.box.remove()
+    }
+
+    btnDelete = document.getElementById('delete')
+    btnDelete.addEventListener('click', () => {
+      new Messagebox('Oops', `You don't have access to delete`).open()
+    })
+
+    btnLogin = document.getElementById('login')
+    btnLogin.addEventListener('click', () => {
+      new Messagebox('Oops', `There is no login feature`).open()
+    })
+    //you can add as many new buttons with editible messageboxes as you want
+
+  </script>
+</body>
+
+</html>

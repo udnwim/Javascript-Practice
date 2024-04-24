@@ -36,16 +36,23 @@
       margin-top: 10px;
     }
 
-    #name,
-    #location {
-      width: 80px;
+    form input,
+    form select {
+      width: 100px;
     }
 
-    #age,
-    #gender,
-    #salary {
-      width: 55px;
+    /* #name {
+      width: 90px;
     }
+
+    #gender {
+      width: 70px;
+    }
+
+    #dob,
+    #location {
+      width: 60px;
+    } */
 
     .input-info [type='submit'] {
       width: 50px;
@@ -129,10 +136,10 @@
         <input type="text" id="name" name="name">
       </div>
 
-      <!-- age -> DOB -->
-      <div class="age">
-        <label for="age">Age: </label>
-        <input type="text" id="age" name="age">
+      <!-- DOB -->
+      <div class="dob">
+        <label for="dob">DoB: </label>
+        <input type="text" id="dob" name="dob">
       </div>
 
       <div class="gender">
@@ -146,11 +153,7 @@
         </select>
       </div>
 
-      <div class="salary">
-        <label for="salary">Salary(k): </label>
-        <input type="text" id="salary" name="salary">
-      </div>
-
+      <!-- Need more cities -->
       <div class="location">
         <label for="location">Location: </label>
         <select type="text" id="location" name="location">
@@ -174,11 +177,10 @@
       <tr>
         <td>ID</td>
         <td>Name</td>
-        <td>Age</td>
+        <td>Date of Birth</td>
         <td>Gender</td>
-        <td>Salary</td>
         <td>Location</td>
-        <td>Entry Date</td>
+        <td>Entry Time</td>
         <td>Operation</td>
       </tr>
     </thead>
@@ -187,12 +189,11 @@
 
   <script>
     //To-Do:
-    //instead of typing the age, make user to select their DOB.
+    //instead of typing the DOB, make user to select their DOB.
     //add an edit feature? (directly modify the table)
     const studentName = document.querySelector('#name')
-    const studentAge = document.querySelector('#age')
+    const studentDob = document.querySelector('#dob')
     const studentGender = document.querySelector('#gender')
-    const studentSalary = document.querySelector('#salary')
     const studentLocation = document.querySelector('#location')
     //select all the elements that has a name attribute to check if they are empty later on
     const nameAttribute = document.querySelectorAll('[name]')
@@ -204,14 +205,13 @@
     const sample = {
       id: 1,
       name: 'Hui',
-      age: '99',
+      dob: '99',
       gender: 'Female',
-      salary: ' - ',
       location: 'Boston',
-      date: '4/9/2024, 4:33:54 PM'
+      date: '4/9/2029, 9:09:09 PM'
     }
     let arr = JSON.parse(localStorage.getItem('member')) || []
-    if(arr.length === 0) arr.unshift(sample)
+    if (arr.length === 0) arr.unshift(sample)
     // console.log(arr)
     render()
 
@@ -226,9 +226,8 @@
       //   tr.innerHTML = `
       //     <td>${arr[i].id}</td>
       //     <td>${arr[i].name}</td>
-      //     <td>${arr[i].age}</td>
+      //     <td>${arr[i].dob}</td>
       //     <td>${arr[i].gender}</td>
-      //     <td>${arr[i].salary}k</td>
       //     <td>${arr[i].location}</td>
       //     <td>${arr[i].date}</td>
       //     <td><a href="#" data-id=${i}>Delete</a></td> 
@@ -241,9 +240,8 @@
           <tr>
             <td>${ele.id}</td>
             <td>${ele.name}</td>
-            <td>${ele.age}</td>
+            <td>${ele.dob}</td>
             <td>${ele.gender}</td>
-            <td>${ele.salary}k</td>
             <td>${ele.location}</td>
             <td>${ele.date}</td>
             <td><a href="#" data-id=${index}><span class="game-icons--trash-can"></span>Delete</a></td> 
@@ -260,9 +258,8 @@
       const data = {
         id: arr.length + 1, //take note on this
         name: studentName.value,
-        age: studentAge.value,
+        dob: studentDob.value,
         gender: studentGender.value,
-        salary: studentSalary.value,
         location: studentLocation.value,
         date: new Date().toLocaleString()
       }
@@ -292,11 +289,12 @@
       }
     })
 
+    //verify if it is a legal name
     const warn = document.querySelector('.surveryForm .warn span')
     studentName.addEventListener('blur', function (e) {
       const RE = /^[a-zA-Z]{3,16}$/
       if (RE.test(this.value) === false) {
-        warn.innerHTML = 'Please enter a name that is 3-16 characters long and no number'
+        warn.innerHTML = 'Name has to be 3-16 letters'
         // warn.classList.add('error')  //make sure to not add a '.' before the classname
         warn.className = 'error' //this works too since we don't need to worry about override
         // green and red toggles; can't appear at the same time
@@ -304,6 +302,8 @@
         warn.innerHTML = ''
       }
     })
+
+    //verify if it is a legal
   </script>
 </body>
 

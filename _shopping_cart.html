@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .wrapper {
+      margin: 0 auto;
+      padding: 20px;
+      width: 800px;
+      box-shadow: 1px 1px 10px grey;
+    }
+
+    .items {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      width: 760px;
+      height: 130px;
+      border-top: 1px solid grey;
+    }
+
+    .items:last-child {
+      border-bottom: 1px solid grey;
+    }
+
+    .items img {
+      margin-right: 10px;
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+    }
+
+    .items .name {
+      margin-right: 10px;
+      width: 150px;
+      font-size: 20px;
+      color: black;
+    }
+    .items .name span {
+      font-size: 16px;
+      color: grey;
+    }
+
+    .items .name:hover {
+      color: #0078d4;
+    }
+
+    .items .detail,
+    .items .quantity {
+      margin-right: 10px;
+      width: 150px;
+      font-size: 16px;
+      color: grey;
+    }
+
+    .items .quantity {
+      width: 90px;
+    }
+
+    .items .price,
+    .items .subtotal,
+    .total {
+      width: 100px;
+      color: darkred;
+      font-size: 18px;
+    }
+
+    .total {
+      margin-right: 20px;
+      display: flex;
+      justify-content: flex-end;
+      width: 740px;
+      padding-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="cart">
+      <!-- <div class="items">
+        <a href="javascript:"><img src="./images/1.jpg" alt=""></a>
+        <a class="name" href="javascript:">Product1</a>
+        <p class="detail">White</p>
+        <p class="price"><span>$</span>289.90</p>
+        <p class="quantity">2</p>
+        <p class="subtotal"><span>$</span>579.80</p>
+      </div> -->
+    </div>
+    <div class="total">
+      <p>Total: <span>$</span><b>1000.00</b></p>
+    </div>
+  </div>
+
+  <script>
+    //a practice of dealing with data
+    const products = [
+      {
+        id: '56506345',
+        name: 'Product1',
+        price: 289.90,
+        source: './images/1.jpg',
+        quantity: 2,
+        detail: { color: 'White' }
+      },
+      {
+        id: '56506357',
+        name: 'Product2',
+        price: 109.80,
+        source: './images/2.jpg',
+        quantity: 3,
+        detail: { color: 'Black', dimension: '40"*40"' }
+      },
+      {
+        id: '56506325',
+        name: 'Product3',
+        price: 488.00,
+        source: './images/3.jpg',
+        quantity: 1,
+        detail: { color: 'Aqua', size: 'Medium' }
+      },
+      {
+        id: '56506342',
+        name: 'Product4',
+        price: 139.00,
+        source: './images/4.jpg',
+        quantity: 1,
+        detail: { color: 'Purple', size: 'Small'},
+        gift: 'Gift1, Gift2'
+      },
+    ]
+
+    document.querySelector('.cart').innerHTML = products.map(items => {
+      //destruct the items object in product array
+      const { name, price, source, quantity, detail, gift } = items
+
+      //the detail attributes will be joined with the '/' symbol
+      const detailNew = Object.values(detail).join('/')
+
+      //render 'gift' part - some items do not have free give away; need a statement
+      //gift is a string, need to turn it into an array then map
+      const str = gift ? gift.split(', ').map(gift => `<span class="gift">[Free]${gift}</span><br>`).join('') : ''
+
+      // calculating subtotal. *100 and then /100 is for accuracy
+      const subtotal = ((price * 100 * quantity) / 100).toFixed(2)
+
+      return `
+        <div class="items">
+          <a href="javascript:"><img src=${source} alt=""></a>
+          <a class="name" href="javascript:">${name}<br>${str}</a>
+          <p class="detail">${detailNew}</p>
+          <p class="price"><span>$</span>${price.toFixed(2)}</p>
+          <p class="quantity"><span>Qty: </span>${quantity}</p>
+          <p class="subtotal"><span>$</span>${subtotal}</p>
+        </div>
+      `
+    }).join('')
+
+    //use reduce() to calculate the total
+    const total = products.reduce((prev, item) => prev + (item.price * 100 * item.quantity) / 100, 0)
+    document.querySelector('.total b').innerHTML = total.toFixed(2)
+
+  </script>
+</body>
+
+</html>
