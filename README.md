@@ -1,5 +1,4 @@
 ## Log
-(Working on taking snapshots for the workpieces)
 
 - lottery2.html
   - Hit the begin button, a list of names will flash on the screen until you hit stop.
@@ -10,7 +9,7 @@
 - product-price-filter.html
   - Click on the price range, and it will filter the products for you.
 
-- countdown.html (Under construction)
+- countdown.html (In progress)
   - Set a time and watch time pass.
 
 - switchingTab.html
