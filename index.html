@@ -10,7 +10,7 @@
 
   <body>
     <!-- create an array to record client's input and render to the webpage -->
-
+    <h3>Refreshing the webpage will not clear the data</h3>
     <form class="surveryForm">
       <!-- <button class="refresh-btn"></button> -->
       <div class="warn"><span></span></div>
@@ -72,10 +72,13 @@
     </table>
 
     <script>
-      const refreshBtn = document.querySelector(".refresh-btn");
-      refreshBtn.addEventListener("click", () => {
-        window.location.reload();
-      });
+      // to do: location city names backend
+      // edit feature
+
+      // const refreshBtn = document.querySelector(".refresh-btn");
+      // refreshBtn.addEventListener("click", () => {
+      //   window.location.reload();
+      // });
 
       const studentName = document.querySelector("#name");
       const studentDob = document.querySelector("#dob");
@@ -94,7 +97,7 @@
         dob: "2099-09-19",
         gender: "Female",
         location: "Boston",
-        date: "4/9/2999, 9:09:09 PM",
+        date: "4/9/2099, 9:09:09 PM",
       };
       let arr = JSON.parse(localStorage.getItem("member")) || [];
       if (arr.length === 0) arr.unshift(sample);
@@ -121,6 +124,9 @@
         // }
 
         //rewrite render function using map() and join():
+        // vv edit button
+        // <a href="#" data-id=${index} class="edit-btn"><span class="game-icons--trash-can"></span>Edit</a>
+
         const outputArr = arr.map(function (ele, index) {
           return `
           <tr>
@@ -131,7 +137,7 @@
             <td>${ele.location}</td>
             <td>${ele.date}</td>
             <td class="btns">
-              <a href="#" data-id=${index} class="edit-btn"><span class="game-icons--trash-can"></span>Edit</a>
+
               <a href="#" data-id=${index} class="delete-btn"><span class="game-icons--trash-can"></span>Delete</a>
             </td>
           </tr>
