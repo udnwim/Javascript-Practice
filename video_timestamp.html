@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .video {
+      width: 560px;
+      height: 315px;
+      margin: 80px auto;
+    }
+    h3 {
+      text-align: center;
+      color: skyblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="video">
+    <h3>Will automatically jump to where you were watching last time</h3>
+    <video width="560" height="315"
+      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls></video>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script>
+    const video = document.querySelector('video')
+    //record the timestamp
+    video.ontimeupdate = _.throttle(() => {
+      localStorage.setItem('lastPlayed', video.currentTime)
+    }, 3000)
+
+    //load the timestamp
+    video.onloadeddata = () => {
+      video.currentTime = localStorage.getItem('lastPlayed') || 0
+    }
+
+  </script>
+</body>
+
+</html>

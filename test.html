@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .box {
+      margin: 10px auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .box div {
+      width: 300px;
+      height: 200px;
+      border-radius: 20px;
+      background: linear-gradient(120deg, #ff8064, #725bdc);
+      text-align: center;
+      line-height: 200px;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box"></div>
+
+  <script>
+    const box = document.querySelector('.box')
+    for (let i = 0; i < 4; i++) {
+      const div = document.createElement('div')
+      div.innerHTML = 'Hello! :)'
+      box.append(div)
+    }
+
+    new Promise((resolve, reject) => {
+      resolve(1)
+      new Promise((resolve, reject) => {
+        resolve(2)
+      }).then(data => {
+        console.log(data)
+      })
+    }).then(data => {
+      console.log(data)
+    })
+    console.log(3)
+    //3 2 1
+
+    setTimeout(() => {
+      console.log(1)
+    }, 0)
+    new Promise((resolve, reject) => {
+      console.log(2)
+      resolve('p1')
+      new Promise((resolve, reject) => {
+        console.log(3)
+        setTimeout(() => {
+          resolve('setTimeout2')
+          console.log(4)
+        }, 0)
+        resolve('p2')
+      }).then(data => {
+        console.log(data)
+      })
+      setTimeout(() => {
+        resolve('setTimeout1')
+        console.log(5)
+      }, 0)
+    }).then(data => {
+      console.log(data)
+    })
+    console.log(6)
+    //2 3 6 p2 p1 1 4 5
+
+  </script>
+</body>
+
+</html>
