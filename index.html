@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Member Adding</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="icon" href="./images/group.png" type="image/png" />
+  </head>
+
+  <body>
+    <!-- create an array to record client's input and render to the webpage -->
+
+    <form class="surveryForm">
+      <!-- <button class="refresh-btn"></button> -->
+      <div class="warn"><span></span></div>
+      <div class="input-info">
+        <div class="name">
+          <label for="name">Name: </label>
+          <input type="text" id="name" name="name" />
+        </div>
+
+        <!-- DOB -->
+        <div class="dob">
+          <label for="dob">DoB: </label>
+          <input type="date" id="dob" name="dob" />
+        </div>
+
+        <div class="gender">
+          <label for="gender">Gender: </label>
+          <select type="text" id="gender" name="gender">
+            <option value="" selected></option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Gender not listed">Not listed above</option>
+            <option value="Prefer not to answer">Prefer not to answer</option>
+          </select>
+        </div>
+
+        <!-- Need more cities -->
+        <div class="location">
+          <label for="location">Location: </label>
+          <select type="text" id="location" name="location">
+            <option value="" selected></option>
+            <option value="Boston">Boston</option>
+            <option value="New York">New York</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Chicago">Chicago</option>
+          </select>
+        </div>
+
+        <input type="submit" value="Add" />
+      </div>
+    </form>
+
+    <div class="border"></div>
+    <h2>Board</h2>
+    <!-- Everything is going to be in the table-tbody below -->
+    <table>
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>Name</td>
+          <td>Date of Birth</td>
+          <td>Gender</td>
+          <td>Location</td>
+          <td>Entry Time</td>
+          <td>Operation</td>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      const refreshBtn = document.querySelector(".refresh-btn");
+      refreshBtn.addEventListener("click", () => {
+        window.location.reload();
+      });
+
+      const studentName = document.querySelector("#name");
+      const studentDob = document.querySelector("#dob");
+      const studentGender = document.querySelector("#gender");
+      const studentLocation = document.querySelector("#location");
+      //select all the elements that has a name attribute to check if they are empty later on
+      const nameAttribute = document.querySelectorAll("[name]");
+      // console.log(nameAttribute)
+
+      const form = document.querySelector(".surveryForm");
+      const tbody = document.querySelector("table tbody");
+      //Get data from local storage, if no local data, then it is an empty array
+      const sample = {
+        id: 1,
+        name: "Hui 贤",
+        dob: "2099-09-19",
+        gender: "Female",
+        location: "Boston",
+        date: "4/9/2999, 9:09:09 PM",
+      };
+      let arr = JSON.parse(localStorage.getItem("member")) || [];
+      if (arr.length === 0) arr.unshift(sample);
+      // console.log(arr)
+      render();
+
+      function render() {
+        //Each time a submit action is triggered, the old existing data will be printed along with the new data,
+        //causing repetition. Need to clear the table before printing
+        tbody.innerHTML = "";
+
+        //create new rows, print table data(everything in data, every objects in arr)
+        // for (let i = 0; i < arr.length; i++) {
+        //   const tr = document.createElement('tr')
+        //   tr.innerHTML = `
+        //     <td>${arr[i].id}</td>
+        //     <td>${arr[i].name}</td>
+        //     <td>${arr[i].dob}</td>
+        //     <td>${arr[i].gender}</td>
+        //     <td>${arr[i].location}</td>
+        //     <td>${arr[i].date}</td>
+        //     <td><a href="#" data-id=${i}>Delete</a></td>
+        //   `
+        // }
+
+        //rewrite render function using map() and join():
+        const outputArr = arr.map(function (ele, index) {
+          return `
+          <tr>
+            <td>${ele.id}</td>
+            <td>${ele.name}</td>
+            <td>${ele.dob}</td>
+            <td>${ele.gender}</td>
+            <td>${ele.location}</td>
+            <td>${ele.date}</td>
+            <td class="btns">
+              <a href="#" data-id=${index} class="edit-btn"><span class="game-icons--trash-can"></span>Edit</a>
+              <a href="#" data-id=${index} class="delete-btn"><span class="game-icons--trash-can"></span>Delete</a>
+            </td>
+          </tr>
+        `;
+        });
+        // // console.log(outputArr.join(''))
+        tbody.innerHTML = outputArr.join("");
+      }
+
+      //when submit action is detected, create an object with these values and add to the array
+      form.addEventListener("submit", function (e) {
+        e.preventDefault(); //important! or everything will be refreshed and not saved
+        const data = {
+          id: arr.length + 1, //take note on this
+          name: studentName.value,
+          dob: studentDob.value,
+          gender: studentGender.value,
+          location: studentLocation.value,
+          date: new Date().toLocaleString(),
+        };
+
+        //make sure the input is not empty!
+        for (let i = 0; i < nameAttribute.length; i++) {
+          // console.log(nameAttribute[i].value)
+          if (nameAttribute[i].value === "") {
+            return alert("Error: Please fill out all the blanks");
+          }
+        }
+
+        arr.push(data);
+        // console.log(arr)
+        localStorage.setItem("member", JSON.stringify(arr));
+        this.reset(); //we use "this" in this case instead of calling the object "form"
+        render();
+      });
+
+      //delete a table row and refresh the table
+      tbody.addEventListener("click", function (e) {
+        if (e.target.tagName === "A") {
+          // console.log(e.target.dataset.id)
+          arr.splice(e.target.dataset.id, 1);
+          localStorage.setItem("member", JSON.stringify(arr));
+          render();
+        }
+      });
+
+      //verify if it is a legal name
+      const warn = document.querySelector(".surveryForm .warn span");
+      studentName.addEventListener("blur", function (e) {
+        const RE = /^[a-zA-Z\s\u4e00-\u9fa5]{3,16}$/;
+        if (RE.test(this.value) === false) {
+          warn.innerHTML = "Name has to be 3-16 letters with no digits";
+          // warn.classList.add('error')  //make sure to not add a '.' before the classname
+          warn.className = "error"; //this works too since we don't need to worry about override
+          // green and red toggles; can't appear at the same time
+        } else {
+          warn.innerHTML = "";
+        }
+      });
+
+      //verify if it is legit
+    </script>
+  </body>
+</html>
