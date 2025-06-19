@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../lib/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <!-- Button trigger modal -->
+  <div class="wrapper register-wrapper">
+    <button type="button" class="btn btn-primary register-btn" data-bs-toggle="modal" data-bs-target="#addModal">
+      Register
+    </button>
+  </div>
+
+  <!-- add feature Modal -->
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Registering New Member</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" class="registerForm">
+          <div class="modal-body">
+            <div class="name">
+              <label for="name">Name: </label><br>
+              <input type="text" id="name" name="name">
+            </div>
+
+            <div class="dob">
+              <label for="dob">Birthday: </label><br>
+              <input type="date" id="dob" name="dob">
+            </div>
+
+            <div class="gender">
+              <label for="gender">Gender: </label><br>
+              <select type="text" id="gender" name="gender">
+                <option value="" selected></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Gender not listed">Not listed above</option>
+                <option value="Prefer not to answer">Prefer not to answer</option>
+              </select>
+            </div>
+
+            <div class="location">
+              <label for="location">Location: </label><br>
+              <select type="text" id="location" name="location">
+                <option value="" selected></option>
+                <option value="Boston">Boston</option>
+                <option value="New York">New York</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Chicago">Chicago</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="border wrapper"></div>
+  
+  <h2>Member Listing</h2>
+  <table class="wrapper">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Date of Birth</td>
+        <td>Gender</td>
+        <td>Location</td>
+        <td>Entry Time</td>
+        <td>Operation</td>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- edit feature Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">Edit</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" class="editForm">
+          <div class="modal-body">
+            <div class="name">
+              <label for="name">Name: </label><br>
+              <input type="text" id="name" name="name">
+            </div>
+
+            <div class="dob">
+              <label for="dob">Birthday: </label><br>
+              <input type="date" id="dob" name="dob">
+            </div>
+
+            <div class="gender">
+              <label for="gender">Gender: </label><br>
+              <select type="text" id="gender" name="gender">
+                <option value="" selected></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Gender not listed">Not listed above</option>
+                <option value="Prefer not to answer">Prefer not to answer</option>
+              </select>
+            </div>
+
+            <div class="location">
+              <label for="location">Location: </label><br>
+              <select type="text" id="location" name="location">
+                <option value="" selected></option>
+                <option value="Boston">Boston</option>
+                <option value="New York">New York</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Chicago">Chicago</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../lib/js/jquery-3.7.1.min.js"></script>
+  <script src="../lib/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+  <script src="../lib/js/form-serialize.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

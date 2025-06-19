@@ -1,16 +1,24 @@
 ## Log
 
-- lottery2.html
-  - Hit the begin button, a list of names will flash on the screen until you hit stop.
+
+- product-price-filter.html [Check out the page here](https://udnwim.github.io/Javascript-Practice/)
+  - Click on the price range, and it will filter the products for you.
+
+- _slideShow.html
+  ![img](./lib/slideshow.gif)
+
+- _switchingTab.html
+  ![img](./lib/switchingTab.gif)
 
 - member-adding.html
   - Enter the name, age, gender, location... and these information will show up in the table below.
+  - ![img](./lib/member%20adding.png)
 
-- product-price-filter.html
-  - Click on the price range, and it will filter the products for you.
+- lottery2.html
+  - Hit the begin button, a list of names will flash on the screen until you hit stop.
 
 - countdown.html (In progress)
-  - Set a time and watch time pass.
+  - A timer.
 
 - switchingTab.html
   - Click on the numbers and it will switch to different pictures.

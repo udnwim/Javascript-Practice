@@ -1,0 +1,112 @@
+@orange1: #f2b535;
+
+.glyphicon-fire {
+    color: @orange1;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+
+    .logo {
+        background-image: url(../images/alloyteam-w-34df9d.svg);
+    }
+}
+
+.navbar {
+    background-color: transparent;
+    border: 0;
+
+    img {
+        width: auto;
+        height: 25px;
+    }
+}
+
+.carousel-indicators li,
+.carousel-indicators .active {
+    margin-right: 3px;
+    width: 50px;
+    height: 4px;
+    border-radius: 2px;
+    border-color: transparent;
+    vertical-align: middle;
+}
+
+.carousel-indicators li {
+    background-color: rgba(255, 255, 255, .5);
+}
+
+@media (max-width:768px) {
+    .img-responsive,
+    .thumbnail>img,
+    .thumbnail a>img,
+    .carousel-inner>.item>img,
+    .carousel-inner>.item>a>img {
+        height: 250px;
+    }
+    .carousel-indicators li,
+    .carousel-indicators .active {
+        width: 30px;
+        height: 4px;
+        border-radius: 5px;
+    }
+    .project .container a {
+        width: 450px;
+        height: 186px;
+    }
+}
+
+@media (min-width:768px) {
+    .img-responsive,
+    .thumbnail>img,
+    .thumbnail a>img,
+    .carousel-inner>.item>img,
+    .carousel-inner>.item>a>img {
+        height: 400px;
+    }
+}
+
+@media (min-width:992px) {
+    .img-responsive,
+    .thumbnail>img,
+    .thumbnail a>img,
+    .carousel-inner>.item>img,
+    .carousel-inner>.item>a>img {
+        height: 500px;
+    }
+}
+
+.carousel {
+    margin-bottom: 40px;
+}
+
+.text {
+    margin: 20px 0 10px;
+    text-align: center;
+    h4 {
+        color: #494d55;
+    }
+    p {
+        font-size: 16px;
+        color: #919191;
+    }
+}
+
+.project {
+    .container {
+        a {
+            display: block;
+            width: 262px;
+            height: 191px;
+            background-color: #7596c1;
+        }
+    }
+}
+
+.glyphicon-chevron-right:before {
+    display: none;
+}
+
+.glyphicon-chevron-left:before {
+    display: none;
+}
