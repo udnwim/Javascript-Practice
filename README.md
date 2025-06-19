@@ -13,7 +13,7 @@
 
 - member-adding.html
   - Enter the name, age, gender, location... and these information will show up in the table below.
-  - ![img](./lib/member%20adding.png)
+  ![img](./lib/member%20adding.gif)
 
 - lottery2.html
   - Hit the begin button, a list of names will flash on the screen until you hit stop.
