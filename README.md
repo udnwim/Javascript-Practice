@@ -4,7 +4,7 @@
   - Click on the price range, and it will filter the products for you.\
   ![img](./lib/price%20filter.gif)
 
-- member-adding.html (In Progress)
+- member-adding.html (Bootstrap)
   - Enter the name, age, gender, location... and these information will show up in the table below.\
   ![img](./lib/member%20adding.gif)
 

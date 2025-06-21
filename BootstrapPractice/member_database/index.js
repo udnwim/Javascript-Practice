@@ -12,12 +12,13 @@ const tbody = document.querySelector('table tbody')
 const sample = {
   id: 1,
   name: 'Hui',
-  dob: '2099-09-19',
+  dob: '2009-09-19',
   gender: 'Female',
   location: 'Boston',
-  date: '4/9/2999, 9:09:09 PM'
+  date: '4/9/2099, 9:09:09 PM'
 }
 let arr = JSON.parse(localStorage.getItem('member')) || []
+// console.log(arr)
 if (arr.length === 0) arr.unshift(sample)
 localStorage.setItem('member', JSON.stringify(arr))
 render()
@@ -42,6 +43,7 @@ function render() {
   // }
 
   //rewrite render function using map() and join():
+  // data-id: the nth row
   tbody.innerHTML = arr.map((ele, index) => {
     return `
           <tr>
@@ -78,7 +80,7 @@ registerForm.addEventListener('submit', (e) => {
 
   // making sure the input is not empty
   for (let i = 0; i < registerInfo.length; i++) {
-    console.log(registerInfo[i].value)
+    // console.log(registerInfo[i].value)
     if (registerInfo[i].value === '') {
       return alert('Error: Please fill out all the blanks')
     }
@@ -99,11 +101,24 @@ const editForm = document.querySelector('.editForm')
 editForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
-  const data =  serialize(editForm, {hash: true, empty: true})
-  console.log(data)
+  const data = serialize(editForm, {hash: true, empty: true})
+  // console.log(data)
+  
+  //find the obj that needs to be modified and then render
+  const target = arr[editIndex]
+  // console.log(target)
+  // change the localstorage and render again
+  Object.keys(data).forEach(key => {
+    target[key] = data[key]
+  })
+  // console.log(target)
+  localStorage.setItem('member', JSON.stringify(arr))
+  render()
+
   editModal.hide()
 })
 
+let editIndex = null
 //delete or edit a member from the list 
 tbody.addEventListener('click', function (e) {
   if (e.target.classList.contains('delete')) {
@@ -113,11 +128,18 @@ tbody.addEventListener('click', function (e) {
   }
   if (e.target.classList.contains('edit')) {
     editModal.show()
+    
+    // locate the target object in localstorage array according to the assigned id
     const index = e.target.parentNode.dataset.id
-    // locate the target object in localstorage array
+    editIndex = index
     const currentMember = JSON.parse(localStorage.getItem('member'))[index]
+    // get all the property names of the table except the first one(id)
+    //vv Output: ['name', 'dob', 'gender', 'location']
     const infoList = Object.keys(currentMember).splice(1, 4)
+    //render: display the row of data in editForm vv
     infoList.forEach(key => {
+      // console.log(document.querySelector(`.editForm #${key}`).value)
+      // console.log(currentMember[key])
       document.querySelector(`.editForm #${key}`).value = currentMember[key]
     })
   }
