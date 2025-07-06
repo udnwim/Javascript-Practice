@@ -1,48 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../lib/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>Bubbles Around a Button</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
 
+    .wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    .center-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #0077ff;
+      color: white;
+      border: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    .bubble {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: #87cefa;
+      border-radius: 50%;
+    }
+
+    /* Position 8 bubbles using rotation */
+    .bubble:nth-child(2) { transform: rotate(0deg)    translate(120px) rotate(-0deg);  top: 50%; left: 50%; }
+    .bubble:nth-child(3) { transform: rotate(45deg)   translate(120px) rotate(-45deg); top: 50%; left: 50%; }
+    .bubble:nth-child(4) { transform: rotate(90deg)   translate(120px) rotate(-90deg); top: 50%; left: 50%; }
+    .bubble:nth-child(5) { transform: rotate(135deg)  translate(120px) rotate(-135deg);top: 50%; left: 50%; }
+    .bubble:nth-child(6) { transform: rotate(180deg)  translate(120px) rotate(-180deg);top: 50%; left: 50%; }
+    .bubble:nth-child(7) { transform: rotate(225deg)  translate(120px) rotate(-225deg);top: 50%; left: 50%; }
+    .bubble:nth-child(8) { transform: rotate(270deg)  translate(120px) rotate(-270deg);top: 50%; left: 50%; }
+    .bubble:nth-child(9) { transform: rotate(315deg)  translate(120px) rotate(-315deg);top: 50%; left: 50%; }
+  </style>
 </head>
-
 <body>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary myBtn">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="wrapper">
+  <button class="center-button">Click</button>
 
-    <script src="../lib/js/jquery-3.7.1.min.js"></script>
-    <script src="../lib/bootstrap-5.2.3-dist/js/bootstrap.min.js"></script>
+  <!-- 8 bubbles surrounding -->
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+</div>
 
-    <script>
-        const myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
-        document.querySelector('.myBtn').addEventListener('click', () => {
-            myModal.hide()
-        })
-    </script>
 </body>
-
 </html>
