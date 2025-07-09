@@ -221,6 +221,7 @@
     btn.addEventListener('click', ()=> {
       angle += 45
       bubbleContainer.style.transform = `rotate(${angle}deg)`
+
       // re-adjusting the text in the bubble to stay upright; not very smooth. The text wiggles
       bubbleContent.forEach((item) => {
         item.style.transform = `rotate(${-angle}deg)`
@@ -237,7 +238,24 @@
           easing: "ease",
         }
       )
-      console.log(angle)
+      // console.log(angle)
+    })
+
+    // if the bubbles are clicked, get the current rotate(deg) and add 360; then go back to the previous position
+    bubbles.forEach((bubble) => {
+      bubble.addEventListener('click', () => {
+        bubble.classList.remove('bubbleHover')
+        bubbleContainer.animate(
+          [
+            {transform: `rotate(${angle}deg)`},
+            {transform: `rotate(${angle + 360}deg)`}
+          ],
+          {
+            duration: 2000,
+            easing: "ease"
+          }
+        )
+      })
     })
     
 
