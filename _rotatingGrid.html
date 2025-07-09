@@ -68,7 +68,6 @@
 
       width: 100%;
       aspect-ratio: 1 / 1;
-      color: #BFA48D;
       font-size: 24px;
       border: 1px solid #DCC5B2;
       background-color: white;
@@ -77,11 +76,15 @@
 
       cursor: pointer;
     }
+    .bubble span {
+      color: #BFA48D;
+      transform: rotate(0deg);
+    }
     .show {
       opacity: 1
     }
     .btnHover {
-      transform: translateY(-2px);
+      /* transform: translateY(-2px); */
       background-color: white;
       color: #BFA48D;
       border: 1px solid #DCC5B2;
@@ -99,14 +102,14 @@
     <button class="btn" style="z-index: 1;">ROTATE</button>
 
     <div class="bubbleContainer">
-      <div class="bubbleWrap" id="wrap1"><div class="bubble" id="bubble1">1</div></div>
-      <div class="bubbleWrap" id="wrap2"><div class="bubble" id="bubble2">2</div></div>
-      <div class="bubbleWrap" id="wrap3"><div class="bubble" id="bubble3">3</div></div>
-      <div class="bubbleWrap" id="wrap4"><div class="bubble" id="bubble4">4</div></div>
-      <div class="bubbleWrap" id="wrap5"><div class="bubble" id="bubble5">5</div></div>
-      <div class="bubbleWrap" id="wrap6"><div class="bubble" id="bubble6">6</div></div>
-      <div class="bubbleWrap" id="wrap7"><div class="bubble" id="bubble7">7</div></div>
-      <div class="bubbleWrap" id="wrap8"><div class="bubble" id="bubble8">8</div></div>
+      <div class="bubbleWrap" id="wrap1"><div class="bubble"><span>1</span></div></div>
+      <div class="bubbleWrap" id="wrap2"><div class="bubble"><span>2</span></div></div>
+      <div class="bubbleWrap" id="wrap3"><div class="bubble"><span>3</span></div></div>
+      <div class="bubbleWrap" id="wrap4"><div class="bubble"><span>4</span></div></div>
+      <div class="bubbleWrap" id="wrap5"><div class="bubble"><span>5</span></div></div>
+      <div class="bubbleWrap" id="wrap6"><div class="bubble"><span>6</span></div></div>
+      <div class="bubbleWrap" id="wrap7"><div class="bubble"><span>7</span></div></div>
+      <div class="bubbleWrap" id="wrap8"><div class="bubble"><span>8</span></div></div>
     </div>
   </div>
 
@@ -144,8 +147,8 @@
     }
 
     // bubbles float effect
+    const bubbles = document.querySelectorAll('.bubble')
     setTimeout(() => {
-      const bubbles = document.querySelectorAll('.bubble')
       bubbles.forEach((bubble) => {
         // float duration for each bubble will be between 3s and 4s; Math.random = [0, 1]
         const floatDuration = 3000 + Math.random() * 1000
@@ -214,12 +217,26 @@
     //when the button is hit, rotate the bubblecontainer by 360/bubbleNum = 360/8 = 40deg
     let angle = 0
     const bubbleContainer = document.querySelector('.bubbleContainer')
+    const bubbleContent = document.querySelectorAll('.bubbleWrap span')
     btn.addEventListener('click', ()=> {
       angle += 45
       bubbleContainer.style.transform = `rotate(${angle}deg)`
-      if (angle === (360 + angle)) {
-        angle = 0
-      }
+      // re-adjusting the text in the bubble to stay upright; not very smooth. The text wiggles
+      bubbleContent.forEach((item) => {
+        item.style.transform = `rotate(${-angle}deg)`
+      })
+
+      //click effect: scaling
+      btn.animate(
+        [
+          {transform: `scale(0.9)`},
+          {transform: `scale(1)`}
+        ],
+        {
+          duration: 500,
+          easing: "ease",
+        }
+      )
       console.log(angle)
     })
     
