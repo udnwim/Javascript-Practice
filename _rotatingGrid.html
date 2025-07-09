@@ -40,7 +40,17 @@
 
       opacity: 1;
       cursor: pointer;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+    .bubbleContainer {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+      height: 100%;
+      transition: all 0.5s ease-out;
     }
     .bubbleWrap {
       position: absolute;
@@ -63,7 +73,7 @@
       border: 1px solid #DCC5B2;
       background-color: white;
       border-radius: 50%;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.2s ease-in-out;
 
       cursor: pointer;
     }
@@ -88,15 +98,16 @@
   <div class="btnContainer">
     <button class="btn" style="z-index: 1;">ROTATE</button>
 
-    <div class="bubbleWrap" id="wrap1"><div class="bubble" id="bubble1">1</div></div>
-    <div class="bubbleWrap" id="wrap2"><div class="bubble" id="bubble2">2</div></div>
-    <div class="bubbleWrap" id="wrap3"><div class="bubble" id="bubble3">3</div></div>
-    <div class="bubbleWrap" id="wrap4"><div class="bubble" id="bubble4">4</div></div>
-    <div class="bubbleWrap" id="wrap5"><div class="bubble" id="bubble5">5</div></div>
-    <div class="bubbleWrap" id="wrap6"><div class="bubble" id="bubble6">6</div></div>
-    <div class="bubbleWrap" id="wrap7"><div class="bubble" id="bubble7">7</div></div>
-    <div class="bubbleWrap" id="wrap8"><div class="bubble" id="bubble8">8</div></div>
-    
+    <div class="bubbleContainer">
+      <div class="bubbleWrap" id="wrap1"><div class="bubble" id="bubble1">1</div></div>
+      <div class="bubbleWrap" id="wrap2"><div class="bubble" id="bubble2">2</div></div>
+      <div class="bubbleWrap" id="wrap3"><div class="bubble" id="bubble3">3</div></div>
+      <div class="bubbleWrap" id="wrap4"><div class="bubble" id="bubble4">4</div></div>
+      <div class="bubbleWrap" id="wrap5"><div class="bubble" id="bubble5">5</div></div>
+      <div class="bubbleWrap" id="wrap6"><div class="bubble" id="bubble6">6</div></div>
+      <div class="bubbleWrap" id="wrap7"><div class="bubble" id="bubble7">7</div></div>
+      <div class="bubbleWrap" id="wrap8"><div class="bubble" id="bubble8">8</div></div>
+    </div>
   </div>
 
   <script>
@@ -178,7 +189,7 @@
           {transform: 'translateY(0)'},
         ],
         {
-          duration: 1000,
+          duration: 800,
           easing: "linear",
         }
       )
@@ -198,6 +209,18 @@
       n = setInterval(() => {
         btnClickReminder(btn)
       }, 5000)
+    })
+
+    //when the button is hit, rotate the bubblecontainer by 360/bubbleNum = 360/8 = 40deg
+    let angle = 0
+    const bubbleContainer = document.querySelector('.bubbleContainer')
+    btn.addEventListener('click', ()=> {
+      angle += 45
+      bubbleContainer.style.transform = `rotate(${angle}deg)`
+      if (angle === (360 + angle)) {
+        angle = 0
+      }
+      console.log(angle)
     })
     
 
