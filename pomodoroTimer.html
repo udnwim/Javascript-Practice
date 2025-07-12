@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+    }
+    .workTimer, .relaxTimer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      width: 40%;
+      height: 50vh;
+      font-size: 50px;
+    }
+    .countdown {
+      margin-bottom: 50px;
+    }
+    .btnContainer {
+      display: flex;
+      flex-direction: column;
+      /* justify-content: center; */
+      align-items: center;
+
+      width: 100%;
+      max-width: 250px;
+    }
+    button {
+      cursor: pointer;
+      font-size: large;
+    }
+    .main {
+      margin-bottom: 20px;
+      width: 50%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      border: 1px solid pink;
+    }
+    .side {
+      width: 25%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="workTimer">
+    <div class="countdown" id="c1">00:01</div>
+    <div class="btnContainer">
+      <button class="main">start</button>
+      <button class="side">reset</button>
+    </div>
+  </div>
+  <div class="relaxTimer">
+    <div class="countdown" id="c2">15:00</div>
+    <div class="btnContainer">
+      <button class="main">start</button>
+      <button class="side">reset</button>
+    </div>
+  </div>
+
+  <script>
+    const mainBtns = document.querySelectorAll('.main')
+    const sideBtns = document.querySelectorAll('.side')
+    mainBtns.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        //make sure to convert the string to number
+        const displayTime = document.querySelector(`#c${index + 1}`)
+        const [min, sec] = displayTime.innerHTML.split(':').map(Number)
+        let totalSec = min * 60 + sec
+        const n = setInterval(() => {
+          if (totalSec === 0) {
+            alert('Time is up!')
+            clearInterval(n)
+            return
+          }
+          totalSec--
+          const displayMin = String(Math.floor(totalSec / 60)).padStart(2, '0')
+          const displaySec = String(totalSec % 60).padStart(2, '0')
+          displayTime.innerHTML = `${displayMin}:${displaySec}`
+        }, 1000)
+      })
+    })
+  </script>
+</body>
+</html>
