@@ -142,9 +142,14 @@
         // anything besides digits will be omit
         let digitOnly = timer.textContent.replace(/[^\d]/g,'')
         timer.textContent = digitOnly
-        // will switch to the next editing section after the second digit is entered
+        // switch to the next editing section after the second digit is entered. when index === 3, cut the third digit
         if (digitOnly.length >= 2) {
-          highlightText(timer)
+          if (index === 3) {
+            timer.textContent = timer.textContent.slice(0, 2)
+            highlightText(timer)
+            return
+          }
+          switchEnterSection(workTimer, index, 1)
         }
       })
     })
