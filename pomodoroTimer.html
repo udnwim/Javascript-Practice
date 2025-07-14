@@ -53,7 +53,7 @@
       border-radius: 50%;
       border: 1px solid pink;
     }
-    .side {
+    .resetBtn {
       width: 25%;
       height: 100%;
     }
@@ -69,7 +69,7 @@
       </div>
       <div class="btnContainer">
         <button class="main">start</button>
-        <button class="side">reset</button>
+        <button class="resetBtn">reset</button>
       </div>
     </div>
     <div class="relaxTimer">
@@ -80,7 +80,7 @@
       </div>
       <div class="btnContainer">
         <button class="main">start</button>
-        <button class="side">reset</button>
+        <button class="resetBtn">reset</button>
       </div>
     </div>
   </div>
@@ -104,9 +104,14 @@
       highlightText(whereTo)
     }
 
-    // editable timer
     const workTimer = document.querySelectorAll('.countdown div')
-    console.log(workTimer)
+    let timerRecord = []
+    // vv get the min and sec of alarms and store them to the timerRecord array
+    workTimer.forEach((timer, index) => {
+      timerRecord[index] = timer.innerHTML
+    })
+    
+    // editable timer
     workTimer.forEach((timer, index) => {
       timer.addEventListener('click', () => {
         timer.contentEditable = 'true'
@@ -147,16 +152,20 @@
           if (index === 3) {
             timer.textContent = timer.textContent.slice(0, 2)
             highlightText(timer)
+            timerRecord[index] = timer.textContent
+            console.log(timerRecord)
             return
           }
+          timerRecord[index] = timer.textContent
           switchEnterSection(workTimer, index, 1)
+          console.log(timerRecord)
         }
       })
     })
 
     // when the button is hit, and the timer is not running(isPause=true), get the current display number and start counting down; otherwise reverse the flag and stop the counter
     const mainBtns = document.querySelectorAll('.main')
-    const resetBtns = document.querySelectorAll('.side')
+    const resetBtns = document.querySelectorAll('.resetBtn')
     let isPause = true
     let timerID
 
@@ -189,8 +198,12 @@
     //reset button
     resetBtns.forEach((btn, index) => {
       btn.addEventListener('click', () => {
-        const displayTime = document.querySelector(`#c${index + 1}`)
-        console.log(originTime[index])
+        if (index === 0) {
+          workTimer[0, 1] = [timerRecord[0], timerRecord[1]]
+        } else {
+          workTimer[2, 3] = [timerRecord[2], timerRecord[3]]
+        }
+        console.log(timerRecord)
       })
     })
   </script>
