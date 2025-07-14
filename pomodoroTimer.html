@@ -163,29 +163,37 @@
       })
     })
 
-    // when the button is hit, and the timer is not running(isPause=true), get the current display number and start counting down; otherwise reverse the flag and stop the counter
+    // start|pause timer
     const mainBtns = document.querySelectorAll('.main')
     const resetBtns = document.querySelectorAll('.resetBtn')
     let isPause = true
     let timerID
-
+    
+    // when the button is hit, and the timer is not running(isPause=true), get the current display number and start counting down; otherwise reverse the flag and stop the counter
     mainBtns.forEach((btn, index) => {
       btn.addEventListener('click', () => {
         if (isPause) {
-          const displayTime = document.querySelector(`#c${index + 1}`)
-          const [min, sec] = displayTime.innerHTML.split(':').map(Number)
+          btn.innerHTML = 'pause'
+          const displayMin = document.querySelector(`#c${index + 1} .min`)
+          const displaySec = document.querySelector(`#c${index + 1} .sec`)
+          const [min, sec] = [
+            displayMin.innerHTML,
+            displaySec.innerHTML
+          ].map(Number)
           let totalSec = min * 60 + sec
           timerID = setInterval(() => {
             if (totalSec > 0) {
               isPause = false
               totalSec--
-              const displayMin = String(Math.floor(totalSec / 60)).padStart(2, '0')
-              const displaySec = String(totalSec % 60).padStart(2, '0')
-              displayTime.innerHTML = `${displayMin}:${displaySec}`
+              const newMin = String(Math.floor(totalSec / 60)).padStart(2, '0')
+              const newSec = String(totalSec % 60).padStart(2, '0')
+              displayMin.innerHTML = `${newMin}`
+              displaySec.innerHTML = `${newSec}`
             } else {
               alert('Time is up!')
               clearInterval(timerID)
               isPause = true
+              btn.innerHTML = 'start'
             }
           }, 1000)
         } else {
