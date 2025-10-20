@@ -8,8 +8,8 @@
   - Enter the name, age, gender, location... and these information will show up in the table below.\
   ![img](./lib/member%20adding.gif)
 
-- _slideShow.html\
-  ![img](./lib/slideshow.gif)
+- _slideShow.html
+  - ![img](./lib/slideshow.gif)
 
 - _switchingTab.html
   - Click on the numbers and it will switch to different pictures.\
