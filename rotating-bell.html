@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 200%;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .wrapper {
+      position: fixed;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      transform: rotate(calc(var(--scroll) * 360deg * 2));
+      transition: transform 0.1s linear;
+    }
+  </style>
+</head>
+<body>
+  <!-- <button class="btn">11</button> -->
+  <div class="wrapper">
+    <img src="./images/bell-solid.svg" alt="bell">
+  </div>
+  <script>
+    const audio = new Audio('./lib/bell-ring.mp3')
+    // const btn = document.querySelector('button')
+    // btn.addEventListener('click', () => {
+    //   audio.play()
+    // })
+    window.addEventListener('scroll', () => {
+      const scroll = window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
+      document.body.style.setProperty('--scroll', scroll)
+    })
+  </script>
+</body>
+</html>

@@ -23,9 +23,7 @@
 - navBarEffect.html
   - A sliding effect when clicking on different tabs.\
   ![img](./lib/navbar.gif)
-
-- countdown.html (In progress)
-  - A timer.
- 
-
   
+- rotating-bell.html
+  - The bell will rotate as you scroll.\
+  ![img](./lib/rotating-bell.gif)
